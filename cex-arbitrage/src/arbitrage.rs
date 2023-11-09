@@ -48,16 +48,17 @@ pub async fn check_arbitrage_opportunity(platforms: Vec<&str>) {
         let prices = get_prices(token, "USDT", platforms.clone()).await.unwrap();
         let (min_price, max_price, min_platform, max_platform) =
             get_min_max_prices(prices, platforms.clone());
-        let profit: f64 = calculate_profit(
+        let mut profit: f64 = calculate_profit(
             min_price,
             max_price,
             min_platform.clone(),
             max_platform.clone(),
         );
+        profit = profit / 100.0;
         println!("Min price: ${} on {}", min_price, min_platform);
         println!("Max price: ${} on {}", max_price, max_platform);
-        println!("Profit: ${}", profit);
-        if profit > 0.0 {
+        println!("Profit: ${profit}",);
+        if profit > 1.0 {
             let notification_text: String = format!(
                 "Buy {} on {} for ${} and sell on {} for ${} for a profit of ${}",
                 token, min_platform, min_price, max_platform, max_price, profit
