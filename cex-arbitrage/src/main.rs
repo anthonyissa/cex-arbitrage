@@ -1,11 +1,14 @@
+mod arbitrage;
 mod get_prices;
 mod types;
-use get_prices::get_prices;
+use arbitrage::check_arbitrage_opportunity;
+use std::time::Duration;
+use tokio::time::sleep;
 
 #[tokio::main]
 async fn main() {
-    match get_prices("ETH", "USDT", ["binance", "coinbase"].to_vec()).await {
-        Ok(price) => println!("Platform prices: {:?}", price),
-        Err(e) => eprintln!("Error getting platform prices: {:?}", e),
-    };
+    loop {
+        check_arbitrage_opportunity(["binance", "coinbase"].to_vec()).await;
+        sleep(Duration::from_secs(5)).await;
+    }
 }
