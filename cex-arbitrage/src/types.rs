@@ -45,3 +45,5 @@ pub struct Arbitrage {
     pub sell_platform: String,
     pub profit: f64,
 }
+
+pub const TOKENS: [&str; 6] = ["ETH", "BTC", "LINK", "MATIC", "OP", "ARB"];

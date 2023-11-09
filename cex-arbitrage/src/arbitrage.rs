@@ -42,20 +42,25 @@ fn calculate_profit(
 }
 
 pub async fn check_arbitrage_opportunity(platforms: Vec<&str>) {
-    let prices = get_prices("ETH", "USDT", platforms.clone()).await.unwrap();
-    let (min_price, max_price, min_platform, max_platform) =
-        get_min_max_prices(prices, platforms.clone());
-    let profit: f64 = calculate_profit(
-        min_price,
-        max_price,
-        min_platform.clone(),
-        max_platform.clone(),
-    );
-    println!("Profit: ${}", profit);
-    if profit > 0.0 {
-        println!(
-            "Buy ETH on {} for ${} and sell on {} for ${} for a profit of ${}",
-            min_platform, min_price, max_platform, max_price, profit
+    for token in types::TOKENS.iter() {
+        println!("Checking {}...", token);
+        let prices = get_prices(token, "USDT", platforms.clone()).await.unwrap();
+        let (min_price, max_price, min_platform, max_platform) =
+            get_min_max_prices(prices, platforms.clone());
+        let profit: f64 = calculate_profit(
+            min_price,
+            max_price,
+            min_platform.clone(),
+            max_platform.clone(),
         );
+        println!("Min price: ${} on {}", min_price, min_platform);
+        println!("Max price: ${} on {}", max_price, max_platform);
+        println!("Profit: ${}", profit);
+        if profit > 0.0 {
+            println!(
+                "Buy {} on {} for ${} and sell on {} for ${} for a profit of ${}",
+                token, min_platform, min_price, max_platform, max_price, profit
+            );
+        }
     }
 }

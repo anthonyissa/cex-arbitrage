@@ -9,6 +9,6 @@ use tokio::time::sleep;
 async fn main() {
     loop {
         check_arbitrage_opportunity(["binance", "coinbase"].to_vec()).await;
-        sleep(Duration::from_secs(5)).await;
+        sleep(Duration::from_secs(10)).await;
     }
 }
