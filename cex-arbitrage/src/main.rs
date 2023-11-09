@@ -1,11 +1,11 @@
-mod binance;
+mod get_prices;
 mod types;
-use binance::get_binance_price;
+use get_prices::get_prices;
 
 #[tokio::main]
 async fn main() {
-    match get_binance_price("ETHUSDT").await {
-        Ok(price) => println!("Binance price: {}", price),
-        Err(e) => eprintln!("Error getting Binance price: {:?}", e),
+    match get_prices("ETH", "USDT", ["binance", "coinbase"].to_vec()).await {
+        Ok(price) => println!("Platform prices: {:?}", price),
+        Err(e) => eprintln!("Error getting platform prices: {:?}", e),
     };
 }
