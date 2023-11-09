@@ -1,6 +1,7 @@
 use get_prices::get_prices;
 
 use crate::get_prices;
+use crate::notification::send_notification;
 use crate::types;
 
 fn get_min_max_prices(prices: Vec<f64>, platforms: Vec<&str>) -> (f64, f64, String, String) {
@@ -57,10 +58,12 @@ pub async fn check_arbitrage_opportunity(platforms: Vec<&str>) {
         println!("Max price: ${} on {}", max_price, max_platform);
         println!("Profit: ${}", profit);
         if profit > 0.0 {
-            println!(
+            let notification_text: String = format!(
                 "Buy {} on {} for ${} and sell on {} for ${} for a profit of ${}",
                 token, min_platform, min_price, max_platform, max_price, profit
             );
+            println!("{}", notification_text);
+            send_notification(&notification_text).await;
         }
     }
 }
