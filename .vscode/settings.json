@@ -1,0 +1,3 @@
+{
+  "rust-analyzer.linkedProjects": [".\\cex-arbitrage\\Cargo.toml"]
+}
