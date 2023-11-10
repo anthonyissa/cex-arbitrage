@@ -10,6 +10,8 @@ FROM debian:buster-slim
 
 RUN apt-get update & apt-get install -y extra-runtime-dependencies & rm -rf /var/lib/apt/lists/*
 
+RUN apt-get install -y pkg-config 
+
 COPY --from=builder /usr/local/cargo/bin/myapp /usr/local/bin/myapp
 
 CMD ["myapp"]
