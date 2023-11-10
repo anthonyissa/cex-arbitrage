@@ -1,4 +1,4 @@
-FROM rust:1.63.0
+FROM rust:1.72.0-alpine
 
 WORKDIR /usr/src/myapp
 
