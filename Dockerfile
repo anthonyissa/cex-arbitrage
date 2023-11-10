@@ -4,7 +4,7 @@ WORKDIR /usr/src/myapp
 
 COPY . .
 
-RUN sudo apt-get install pkg-config libssl-dev
+RUN apt-get install pkg-config libssl-dev
 
 RUN cargo build
 
