@@ -4,6 +4,6 @@ WORKDIR /usr/src/myapp
 
 COPY . .
 
-RUN cargo install --path .
+RUN cargo build
 
-CMD ["myapp"]
+CMD ["./target/debug/cex-arbitrage"]
